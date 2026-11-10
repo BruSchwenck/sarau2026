@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sarau 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+/* ==========================================================
+   CSS — pode ser movido para style.css sem alterações
+   ========================================================== */
+
+/* [EDITAR AQUI]: TODA a identidade visual está neste bloco */
+:root {
+  /* CORES */
+  --cor-papel: #F4F0EA;
+  --cor-tinta: #111111;
+  --cor-amarelo: #E8FF3A;
+  --cor-vermelho: #C2381E;
+  --cor-roxo: #6B2FD6;
+  --cor-azul: #1F3CFF;
+
+  /* FONTES */
+  --fonte-titulo: 'Anton', Impact, sans-serif;
+  --fonte-texto: 'Space Mono', 'Courier New', monospace;
+
+  /* TAMANHOS */
+  --tam-headliner: clamp(2.8rem, 10vw, 7.5rem);
+  --tam-segundo: clamp(1.6rem, 5vw, 3.2rem);
+  --tam-menor: clamp(1rem, 2.4vw, 1.5rem);
+  --tam-texto: 1rem;
+  --borda: 4px solid var(--cor-tinta);
+  --sombra: 6px 6px 0 var(--cor-tinta);
+  --largura-max: 1200px;
+  --espaco: clamp(1rem, 4vw, 2.5rem);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; scroll-padding-top: 90px; }
+body {
+  font-family: var(--fonte-texto);
+  font-size: var(--tam-texto);
+  line-height: 1.5;
+  color: var(--cor-tinta);
+  background-color: var(--cor-papel);
+  /* meia-tinta (halftone) sutil */
+  background-image: radial-gradient(rgba(17,17,17,.14) 1px, transparent 1.4px);
+  background-size: 7px 7px;
+  overflow-x: hidden;
+}
+/* granulado / ruído sobre toda a página */
+body::after {
+  content: ""; position: fixed; inset: 0; z-index: 999; pointer-events: none; opacity: .18;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+img { display: block; max-width: 100%; }
+a { color: inherit; }
+:focus-visible { outline: 4px solid var(--cor-azul); outline-offset: 3px; }
+
+h1, h2, h3 { font-family: var(--fonte-titulo); font-weight: 400; text-transform: uppercase; line-height: .95; }
+.container { max-width: var(--largura-max); margin: 0 auto; padding: 0 var(--espaco); }
+section { padding: calc(var(--espaco) * 2) 0; }
+
+.titulo-secao {
+  font-size: clamp(2.5rem, 8vw, 5rem);
+  display: inline-block; background: var(--cor-tinta); color: var(--cor-amarelo);
+  padding: .1em .3em; margin-bottom: var(--espaco); transform: rotate(-1.5deg);
+  box-shadow: 6px 6px 0 var(--cor-vermelho);
+}
+
+/* BOTÃO / CARIMBO */
+.btn {
+  display: inline-block; font-family: var(--fonte-texto); font-weight: 700; text-transform: uppercase;
+  text-decoration: none; letter-spacing: .05em; cursor: pointer;
+  padding: .8em 1.4em; background: var(--cor-amarelo); color: var(--cor-tinta);
+  border: var(--borda); box-shadow: var(--sombra); transform: rotate(-2deg);
+  transition: transform .12s, box-shadow .12s;
+}
+.btn:hover { transform: rotate(-2deg) translate(3px, 3px); box-shadow: 3px 3px 0 var(--cor-tinta); }
+.btn--vermelho { background: var(--cor-vermelho); color: var(--cor-papel); }
+
+/* ---------- HEADER ---------- */
+.topo { position: sticky; top: 0; z-index: 50; background: var(--cor-papel); border-bottom: var(--borda); }
+.topo__in { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; padding: .6rem var(--espaco); max-width: var(--largura-max); margin: 0 auto; }
+.logo { font-family: var(--fonte-titulo); font-size: 1.8rem; text-transform: uppercase; text-decoration: none; background: var(--cor-tinta); color: var(--cor-amarelo); padding: 0 .3em; transform: rotate(-2deg); }
+.topo__info { font-weight: 700; font-size: .8rem; text-transform: uppercase; max-width: 34ch; line-height: 1.25; }
+.topo .btn { padding: .5em 1em; font-size: .85rem; }
+
+/* ---------- HERO ---------- */
+.hero { min-height: min(82vh, 800px); padding: var(--espaco) 0; border-bottom: var(--borda); background: var(--cor-roxo); color: var(--cor-papel); position: relative; overflow: hidden; display: flex; align-items: center; }
+.hero__fundo { position: absolute; inset: 0; display: flex; width: max-content; animation: fundo-infinito 48s linear infinite; }
+.hero__fundo img { flex: none; width: 100vw; height: 100%; object-fit: cover; filter: brightness(.42); }
+.hero__grade { position: relative; z-index: 2; width: 100%; grid-template-columns: 1fr; }
+@keyframes fundo-infinito { to { transform: translateX(-50%); } }
+.hero__grade { display: grid; grid-template-columns: 1fr; gap: var(--espaco); align-items: center; }
+.hero h1 { font-size: clamp(4rem, 16vw, 11rem); color: var(--cor-amarelo); text-shadow: 6px 6px 0 var(--cor-tinta); }
+.hero__frase { font-size: 1.15rem; font-weight: 700; margin: 1rem 0; max-width: 34ch; }
+.hero__data { display: inline-block; background: var(--cor-amarelo); color: var(--cor-tinta); border: var(--borda); box-shadow: var(--sombra); padding: .3em .8em; font-weight: 700; transform: rotate(1.5deg); margin-bottom: 1.2rem; }
+.hero__img { border: var(--borda); box-shadow: 10px 10px 0 var(--cor-tinta); transform: rotate(2deg); background: var(--cor-papel); padding: 10px; }
+.sticker { position: absolute; right: 4%; top: 8%; width: 110px; height: 110px; border-radius: 50%; background: var(--cor-vermelho); color: var(--cor-papel); border: var(--borda); display: grid; place-items: center; text-align: center; font-family: var(--fonte-titulo); text-transform: uppercase; line-height: 1; transform: rotate(14deg); font-size: 1.2rem; }
+
+
+/* faixa rolando */
+.faixa { background: var(--cor-tinta); color: var(--cor-amarelo); font-family: var(--fonte-titulo); text-transform: uppercase; font-size: 1.6rem; white-space: nowrap; overflow: hidden; padding: .3rem 0; border-bottom: var(--borda); }
+.faixa p { display: inline-block; padding-left: 100%; animation: rolar 25s linear infinite; }
+@keyframes rolar { to { transform: translateX(-100%); } }
+
+/* ---------- LINE-UP ---------- */
+.lineup { background: var(--cor-papel); }
+.dia { border: var(--borda); box-shadow: 10px 10px 0 var(--cor-azul); background: var(--cor-papel); padding: var(--espaco); text-align: center; }
+.dia__data { font-weight: 700; margin-bottom: 1rem; text-transform: uppercase; }
+.headliners { font-size: var(--tam-headliner); color: var(--cor-vermelho); }
+.segundo { font-size: var(--tam-segundo); margin: 1rem 0; }
+.menores { font-family: var(--fonte-texto); font-weight: 700; font-size: var(--tam-menor); text-transform: uppercase; }
+.sep { color: var(--cor-roxo); padding: 0 .3em; }
+
+/* ---------- GALERIA ---------- */
+.galeria { background: var(--cor-amarelo); border-block: var(--borda); }
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--espaco); }
+.card { background: var(--cor-papel); border: var(--borda); box-shadow: var(--sombra); padding: 10px; }
+.card:nth-child(odd) { transform: rotate(-1deg); }
+.card:nth-child(even) { transform: rotate(1deg); }
+.card img { border: 3px solid var(--cor-tinta); width: 100%; aspect-ratio: 4/3; object-fit: cover; filter: contrast(1.1) sepia(.15); transition: filter .25s; }
+.card h3 { font-size: 1.7rem; margin: .6rem 0 .2rem; }
+.card p { font-size: .9rem; }
+
+/* ---------- FAIXA DE FOTOS (MARQUEE INFINITO) ---------- */
+.fotos { overflow: hidden; background: var(--cor-tinta); border-block: var(--borda); padding: 1.4rem 0; }
+.fotos__trilho { display: flex; width: max-content; animation: passar 18s linear infinite; }
+.fotos:hover .fotos__trilho { animation-play-state: paused; }
+.fotos__grupo { display: flex; gap: 1.2rem; padding-right: 1.2rem; } /* padding = gap: loop sem pulo */
+.fotos figure { flex: none; width: clamp(200px, 28vw, 300px); background: var(--cor-papel); border: 3px solid var(--cor-tinta); outline: 3px solid var(--cor-papel); padding: 8px 8px 30px; position: relative; }
+.fotos figure:nth-child(odd) { transform: rotate(-1.5deg); }
+.fotos figure:nth-child(even) { transform: rotate(1.5deg); }
+.fotos img { width: 100%; aspect-ratio: 4/3; object-fit: cover; filter: contrast(1.1) sepia(.15); transition: filter .25s; border: 2px solid var(--cor-tinta); }
+.fotos figcaption { position: absolute; left: 8px; bottom: 5px; font-size: .7rem; font-weight: 700; text-transform: uppercase; }
+.fotos figcaption::before { content: "▶ PLAY"; color: var(--cor-vermelho); }
+@keyframes passar { to { transform: translateX(-50%); } }
+
+/* ---------- SETLIST ---------- */
+.setlist { background: var(--cor-azul); border-bottom: var(--borda); }
+.setlist .titulo-secao { background: var(--cor-amarelo); color: var(--cor-tinta); }
+.folha { position: relative; max-width: 720px; margin: 1.5rem auto 0; background: #FFFDF6; color: var(--cor-tinta); border: var(--borda); box-shadow: 10px 10px 0 var(--cor-tinta); padding: calc(var(--espaco) * 1.2) var(--espaco) var(--espaco); transform: rotate(-1deg); }
+.folha::before, .folha::after { content: ""; position: absolute; top: -16px; width: 110px; height: 32px; background: rgba(232,255,58,.85); border: 1px solid rgba(17,17,17,.25); }
+.folha::before { left: 8%; transform: rotate(-6deg); }
+.folha::after { right: 8%; transform: rotate(5deg); }
+.folha h3 { font-size: 2.2rem; margin-bottom: .2rem; }
+.folha__sub { font-size: .8rem; font-weight: 700; text-transform: uppercase; margin-bottom: 1rem; }
+.faixas { list-style: none; }
+.faixas li { display: grid; grid-template-columns: 3.2rem 1fr auto; gap: .6rem; align-items: baseline; padding: .45rem 0; line-height: 1.3; border-bottom: 2px dotted rgba(17,17,17,.35); }
+.faixas .num { font-family: var(--fonte-titulo); font-size: 1.6rem; color: var(--cor-vermelho); }
+.faixas .nome { font-weight: 700; text-transform: uppercase; }
+.faixas .artista { font-size: .85rem; text-align: right; }
+
+/* ---------- LOCALIZAÇÃO & ACESSO ---------- */
+.endereco { display: inline-block; font-weight: 700; font-size: clamp(1.1rem, 3vw, 1.6rem); background: var(--cor-amarelo); border: var(--borda); box-shadow: var(--sombra); padding: .4em .8em; margin-bottom: var(--espaco); transform: rotate(1deg); }
+.local__grade { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: var(--espaco); }
+.ticket { position: relative; background: var(--cor-papel); border: var(--borda); box-shadow: var(--sombra); padding: 1.2rem; display: flex; flex-direction: column; gap: .5rem; }
+.ticket::after { content: ""; position: absolute; left: 14px; right: 14px; bottom: 5.2rem; border-top: 3px dashed var(--cor-tinta); } /* picote */
+.ticket h3 { font-size: 2.6rem; }
+.ticket__tag { font-size: .8rem; font-weight: 700; text-transform: uppercase; border: 2px solid currentColor; padding: 0 .4em; align-self: flex-start; transform: rotate(-3deg); }
+.ticket ul { list-style: none; font-size: .9rem; margin-bottom: 1.2rem; flex: 1; }
+.ticket li::before { content: "★ "; }
+.carimbo { font-family: var(--fonte-titulo); font-size: 1.6rem; text-transform: uppercase; margin-top: 1.4rem; }
+.ticket .btn { text-align: center; transform: none; }
+
+/* Filtro de impresso nos anos 90; cores originais no hover */
+.hero__img { filter: contrast(1.1) sepia(.15); transition: filter .25s; }
+.hero__img:hover, .card img:hover, .fotos img:hover { filter: none; }
+
+/* ---------- MENSAGEM ---------- */
+.mensagem { background: var(--cor-roxo); color: var(--cor-papel); border-bottom: var(--borda); }
+.mensagem__caixa { max-width: 760px; margin: 0 auto; padding: var(--espaco); background: var(--cor-papel); color: var(--cor-tinta); border: var(--borda); box-shadow: var(--sombra); text-align: center; }
+.mensagem__pergunta { font-family: var(--fonte-titulo); font-size: clamp(2rem, 5vw, 3.5rem); text-transform: uppercase; }
+.mensagem__acoes { display: flex; justify-content: center; flex-wrap: wrap; gap: 1.5rem; margin: 1.5rem 0; }
+.mensagem__acoes button { font: inherit; }
+.mensagem__retorno { min-height: 3rem; font-weight: 700; }
+.mensagem__retorno.revelar { animation: revelar-mensagem .65s cubic-bezier(.2,.8,.25,1) both; }
+@keyframes revelar-mensagem {
+  0% { opacity: 0; transform: translateY(18px) rotate(-2deg) scale(.94); }
+  65% { opacity: 1; transform: translateY(-3px) rotate(.5deg) scale(1.02); }
+  100% { opacity: 1; transform: translateY(0) rotate(0) scale(1); }
+}
+@media (prefers-reduced-motion: reduce) { .mensagem__retorno.revelar { animation: none; } }
+
+/* ---------- FOOTER ---------- */
+.rodape { background: var(--cor-tinta); color: var(--cor-papel); padding: calc(var(--espaco) * 1.5) 0; border-top: var(--borda); }
+.rodape__grade { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--espaco); }
+.rodape h4 { font-family: var(--fonte-titulo); font-weight: 400; font-size: 1.5rem; color: var(--cor-amarelo); text-transform: uppercase; margin-bottom: .5rem; }
+.rodape ul { list-style: none; }
+.rodape a { text-decoration: none; }
+.rodape a:hover { color: var(--cor-amarelo); text-decoration: underline; }
+.copy { margin-top: var(--espaco); font-size: .8rem; opacity: .75; }
+
+/* ---------- RESPONSIVO ---------- */
+@media (max-width: 800px) {
+  .hero { min-height: 72vh; }
+  .sticker { width: 80px; height: 80px; font-size: .9rem; }
+  .topo__info { font-size: .7rem; order: 3; width: 100%; }
+  .faixas li { grid-template-columns: 2.6rem 1fr; }
+  .faixas .artista { grid-column: 2; text-align: left; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .faixa p { animation: none; padding-left: 0; }
+  .fotos { overflow-x: auto; }
+  .fotos__trilho { animation: none; }
+  .hero__fundo { animation-duration: 100s; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ================= HEADER ================= -->
+<header class="topo">
+  <div class="topo__in">
+    <!-- [EDITAR AQUI]: Mude o nome do festival (logo) -->
+    <a class="logo" href="#inicio">SARAU 2026</a>
+    <!-- Data e hora do evento -->
+    <p class="topo__info">13/11/2026 às 19h</p>
+    <!-- Link para as apresentações -->
+    <a class="btn" href="#lineup">Ver apresentações</a>
+    <a class="btn btn--vermelho" href="#mensagem">Mensagem</a>
+  </div>
+</header>
+
+<main id="inicio">
+
+<!-- ================= HERO ================= -->
+<section class="hero">
+  <div class="hero__fundo" aria-hidden="true">
+    <img src="IMG-20261106-WA0025.jpg" alt="">
+    <img src="IMG-20261106-WA0025.jpg" alt="">
+    <img src="IMG-20261106-WA0025.jpg" alt="">
+    <img src="IMG-20261106-WA0025.jpg" alt="">
+  </div>  <div class="sticker">Ao vivo<br>às 19h</div>
+  <div class="container hero__grade">
+    <div>
+      <!-- [EDITAR AQUI]: Mude o título gigante do festival -->
+      <h1>Sarau<br>2026</h1>
+      <!-- [EDITAR AQUI]: Mude a frase de impacto -->
+      <p class="hero__frase">Uma noite de arte, encontros e apresentações inesquecíveis.</p>
+      <!-- [EDITAR AQUI]: Mude a data em destaque -->
+      <p class="hero__data">13/11/2026 às 19h</p>
+
+    </div>
+  </div>
+</section>
+
+<div class="faixa" aria-hidden="true">
+  <!-- [EDITAR AQUI]: Mude o texto da faixa rolante -->
+  <p>★ Sarau 2026 ★ Arte e cultura ★ 13/11/2026 às 19h ★ Entrada gratuita ★ Sarau 2026 ★</p>
+</div>
+
+<!-- ================= LINE-UP ================= -->
+<section class="lineup" id="lineup">
+  <div class="container">
+    <h2 class="titulo-secao">Line-up</h2>
+
+    <!-- [EDITAR AQUI]: Mude as atrações. Headliners = fonte gigante; segundo escalão = fonte média; demais = fonte menor -->
+    <div class="dia">
+      <p class="dia__data">Palco Único · 13/11/2026 · 19h</p>
+      <h3 class="headliners">Mamonas Assassinas <span class="sep">★</span> Racionais MC's <span class="sep">★</span> Djavan</h3>
+      <p class="segundo">Xuxa <span class="sep">•</span> Sandy &amp; Junior <span class="sep">•</span> Castelo Rá-Tim-Bum</p>
+      <p class="menores">Engenheiros do Hawaii <span class="sep">★</span> Raça Negra <span class="sep">★</span> Caetano Veloso <span class="sep">★</span> Lenine <span class="sep">★</span> Titãs</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= GALERIA ================= -->
+<section class="galeria" id="experiencia">
+  <div class="container">
+    <h2 class="titulo-secao">Experiência</h2>
+    <div class="cards">
+      <!-- [TROCAR IMAGEM AQUI] e [EDITAR AQUI]: mude o src da foto, o título e a descrição -->
+      <article class="card">
+        <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=600&h=450&q=70" width="600" height="450" alt="Palco iluminado" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/600x450/6B2FD6/F4F0EA?text=TROCAR+IMAGEM'">
+        <h3>Palco Único</h3>
+        <p>Todas as 12 apresentações acontecem no mesmo palco.</p>
+      </article>
+      <!-- [TROCAR IMAGEM AQUI] e [EDITAR AQUI]: mude o src da foto, o título e a descrição -->
+      <article class="card">
+        <img src="https://images.unsplash.com/photo-1603048588665-791ca8aea617?auto=format&fit=crop&w=600&h=450&q=70" width="600" height="450" alt="Disco de vinil" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/600x450/C2381E/F4F0EA?text=TROCAR+IMAGEM'">
+        <h3>Vinil &amp; K7</h3>
+        <p>Camisetas, pôsteres e fitas em edição limitada.</p>
+      </article>
+      <!-- [TROCAR IMAGEM AQUI] e [EDITAR AQUI]: mude o src da foto, o título e a descrição -->
+      <article class="card">
+        <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=600&h=450&q=70" width="600" height="450" alt="Público em um show" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/600x450/1F3CFF/F4F0EA?text=TROCAR+IMAGEM'">
+        <h3>Público</h3>
+        <p>Entrada gratuita e a pista inteira cantando junto.</p>
+      </article>
+      <!-- [TROCAR IMAGEM AQUI] e [EDITAR AQUI]: mude o src da foto, o título e a descrição -->
+      <article class="card">
+        <img src="https://images.unsplash.com/photo-1593784991095-a205069470b6?auto=format&fit=crop&w=600&h=450&q=70" width="600" height="450" alt="TV de tubo retrô" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/600x450/E8FF3A/111111?text=TROCAR+IMAGEM'">
+        <h3>Clima anos 90</h3>
+        <p>Telões, TVs de tubo e muita nostalgia.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FAIXA DE FOTOS (INFINITA) ================= -->
+<section class="fotos" aria-label="Fotos do festival">
+  <div class="fotos__trilho">
+    <div class="fotos__grupo">
+      <!-- O JS duplica esta faixa sozinho para o loop infinito: edite só estas 6 fotos -->
+      <!-- [TROCAR IMAGEM AQUI] -->
+      <figure><img src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=600&h=450&q=70" width="600" height="450" alt="Público com as mãos para o alto" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/600x450/6B2FD6/F4F0EA?text=TROCAR+IMAGEM'"><figcaption>Cam 01</figcaption></figure>
+      <!-- [TROCAR IMAGEM AQUI] -->
+      <figure><img src="https://images.unsplash.com/photo-1510915361894-db8b60106cb1?auto=format&fit=crop&w=600&h=450&q=70" width="600" height="450" alt="Guitarra no palco" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/600x450/6B2FD6/F4F0EA?text=TROCAR+IMAGEM'"><figcaption>Cam 02</figcaption></figure>
+      <!-- [TROCAR IMAGEM AQUI] -->
+      <figure><img src="https://images.unsplash.com/photo-1603048588665-791ca8aea617?auto=format&fit=crop&w=600&h=450&q=70" width="600" height="450" alt="Disco de vinil" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/600x450/6B2FD6/F4F0EA?text=TROCAR+IMAGEM'"><figcaption>Cam 03</figcaption></figure>
+      <!-- [TROCAR IMAGEM AQUI] -->
+      <figure><img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=600&h=450&q=70" width="600" height="450" alt="Luzes de show" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/600x450/6B2FD6/F4F0EA?text=TROCAR+IMAGEM'"><figcaption>Cam 04</figcaption></figure>
+      <!-- [TROCAR IMAGEM AQUI] -->
+      <figure><img src="https://images.unsplash.com/photo-1593784991095-a205069470b6?auto=format&fit=crop&w=600&h=450&q=70" width="600" height="450" alt="TV de tubo retrô" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/600x450/6B2FD6/F4F0EA?text=TROCAR+IMAGEM'"><figcaption>Cam 05</figcaption></figure>
+      <!-- [TROCAR IMAGEM AQUI] -->
+      <figure><img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=600&h=450&q=70" width="600" height="450" alt="Microfone no palco" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/600x450/6B2FD6/F4F0EA?text=TROCAR+IMAGEM'"><figcaption>Cam 06</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SETLIST ================= -->
+<section class="setlist" id="setlist">
+  <div class="container">
+    <h2 class="titulo-secao">Setlist</h2>
+    <div class="folha">
+      <!-- [EDITAR AQUI]: Mude o título e o subtítulo da folha -->
+      <h3>Setlist Oficial</h3>
+      <p class="folha__sub">Palco Único · 12 apresentações</p>
+      <ol class="faixas">
+        <!-- [EDITAR MÚSICA AQUI]: mude número, nome da música e artista/banda -->
+        <li><span class="num">01</span><span class="nome">Era um Garoto Que Como Eu Amava os Beatles e os Rolling Stones</span><span class="artista">Engenheiros do Hawaii</span></li>
+        <!-- [EDITAR MÚSICA AQUI]: mude número, nome da música e artista/banda -->
+        <li><span class="num">02</span><span class="nome">Diário de um Detento</span><span class="artista">Racionais MC's</span></li>
+        <!-- [EDITAR MÚSICA AQUI]: mude número, nome da música e artista/banda -->
+        <li><span class="num">03</span><span class="nome">Paciência</span><span class="artista">Lenine</span></li>
+        <!-- [EDITAR MÚSICA AQUI]: mude número, nome da música e artista/banda -->
+        <li><span class="num">04</span><span class="nome">Te Devoro</span><span class="artista">Djavan</span></li>
+        <!-- [EDITAR MÚSICA AQUI]: mude número, nome da música e artista/banda -->
+        <li><span class="num">05</span><span class="nome">Faltando um Pedaço</span><span class="artista">Djavan</span></li>
+        <!-- [EDITAR MÚSICA AQUI]: mude número, nome da música e artista/banda -->
+        <li><span class="num">06</span><span class="nome">Cheia de Manias</span><span class="artista">Raça Negra</span></li>
+        <!-- [EDITAR MÚSICA AQUI]: mude número, nome da música e artista/banda -->
+        <li><span class="num">07</span><span class="nome">Você Não Me Ensinou a Te Esquecer</span><span class="artista">Caetano Veloso</span></li>
+        <!-- [EDITAR MÚSICA AQUI]: mude número, nome da música e artista/banda -->
+        <li><span class="num">08</span><span class="nome">Chopis Centis</span><span class="artista">Mamonas Assassinas</span></li>
+        <!-- [EDITAR MÚSICA AQUI]: mude número, nome da música e artista/banda -->
+        <li><span class="num">09</span><span class="nome">Maria Chiquinha (Mariquinha)</span><span class="artista">Sandy &amp; Junior</span></li>
+        <!-- [EDITAR MÚSICA AQUI]: mude número, nome da música e artista/banda -->
+        <li><span class="num">10</span><span class="nome">Especial Castelo Rá-Tim-Bum (Tema / Apresentação)</span><span class="artista">Castelo Rá-Tim-Bum</span></li>
+        <!-- [EDITAR MÚSICA AQUI]: mude número, nome da música e artista/banda -->
+        <li><span class="num">11</span><span class="nome">Medley: Lua de Cristal / Tindolelê / Ilariê</span><span class="artista">Xuxa</span></li>
+        <!-- [EDITAR MÚSICA AQUI]: mude número, nome da música e artista/banda -->
+        <li><span class="num">12</span><span class="nome">É Preciso Saber Viver</span><span class="artista">Titãs</span></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ================= MENSAGEM DO SARAU ================= -->
+<section class="mensagem" id="mensagem">
+  <div class="container">
+    <h2 class="titulo-secao">Uma mensagem pra você</h2>
+    <div class="mensagem__caixa">
+      <div class="mensagem__acoes" role="group" aria-label="Mensagem para quem já assistiu ao sarau">
+        <button class="btn btn--vermelho" type="button" data-resposta="sim" aria-pressed="false">Ver mensagem</button>
+      </div>
+      <p class="mensagem__retorno" id="mensagem-retorno" aria-live="polite">Escolha uma opção para ver a mensagem.</p>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer class="rodape">
+  <div class="container">
+    <!-- [EDITAR AQUI]: Mude o aviso de direitos autorais -->
+    <p class="copy">© 2026 Sarau 2026. Todos os direitos reservados.</p>
+  </div>
+</footer>
+
+<script>
+/* ==========================================================
+   JS — pode ser movido para script.js sem alterações
+   ========================================================== */
+
+/* ---------- FAIXA DE FOTOS INFINITA ---------- */
+/* Duplica o grupo de fotos para o loop ficar contínuo, sem pulos */
+const trilho = document.querySelector(".fotos__trilho");
+const grupo = trilho.querySelector(".fotos__grupo");
+const copia = grupo.cloneNode(true);
+copia.setAttribute("aria-hidden", "true");
+copia.querySelectorAll("img").forEach((img) => (img.alt = ""));
+trilho.appendChild(copia);
+
+/* ---------- RESPOSTA À PERGUNTA DO SARAU ---------- */
+document.querySelectorAll("[data-resposta]").forEach((botao) => {
+  botao.addEventListener("click", () => {
+    botao.setAttribute("aria-pressed", "true");
+    const retorno = document.getElementById("mensagem-retorno");
+    retorno.textContent = "Fizemos essa apresentação com muito carinho, pensando em uma época que marcou a vida de vocês, queremos que por alguns minutos vocês possam relembrar as boas memórias e reviver um pouquinho dessa época tão especial";
+    retorno.classList.remove("revelar");
+    void retorno.offsetWidth;
+    retorno.classList.add("revelar");
+  });
+});
+/* ---------- ROLAGEM SUAVE ---------- */
+document.querySelectorAll('a[href^="#"]').forEach((link) => {
+  link.addEventListener("click", (e) => {
+    const id = link.getAttribute("href");
+    const alvo = id.length > 1 ? document.querySelector(id) : null;
+    if (alvo) {
+      e.preventDefault();
+      alvo.scrollIntoView({ behavior: "smooth" });
+    }
+  });
+});
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
